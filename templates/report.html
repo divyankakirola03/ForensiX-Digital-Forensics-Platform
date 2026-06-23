@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForensiX Report</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🔍 ForensiX Report</h1>
+
+        <h2>Case ID: FX-{{ case_id }}</h2>
+
+        <div class="card">
+
+            <h2>Evidence Analysis Complete</h2>
+
+            <hr>
+
+            <h3>📁 File Information</h3>
+
+            <p><strong>Filename:</strong> {{ metadata.filename }}</p>
+
+            <p><strong>Size:</strong> {{ metadata.size }} KB</p>
+
+            <p><strong>Created:</strong> {{ metadata.created }}</p>
+
+            <p><strong>Modified:</strong> {{ metadata.modified }}</p>
+
+            <p><strong>Extension:</strong> {{ metadata.extension }}</p>
+
+            <hr>
+
+            <h3>📷 EXIF Analysis</h3>
+
+            <p>
+                <strong>Camera Make:</strong>
+                {{ exif.get('Make', 'Not Available') }}
+            </p>
+
+            <p>
+                <strong>Camera Model:</strong>
+                {{ exif.get('Model', 'Not Available') }}
+            </p>
+
+            <p>
+                <strong>Date Taken:</strong>
+                {{ exif.get('DateTime', 'Not Available') }}
+            </p>
+
+            <hr>
+
+            <h3>🔐 MD5 Hash</h3>
+
+            <p style="word-break: break-all;">
+                {{ hashes.md5 }}
+            </p>
+
+            <hr>
+
+            <h3>🛡 SHA256 Hash</h3>
+
+            <p style="word-break: break-all;">
+                {{ hashes.sha256 }}
+            </p>
+
+            <hr>
+
+            <h3>✅ Evidence Status</h3>
+
+            <p>
+                Evidence stored successfully in forensic database.
+            </p>
+
+        </div>
+
+        <br>
+
+        <!-- PDF BUTTON -->
+
+        <a href="{{ url_for('download_report', case_id=case_id) }}">
+            <button>
+                📄 Download PDF Report
+            </button>
+        </a>
+
+        <br><br>
+
+        <!-- BACK BUTTON -->
+
+        <a href="/">
+            <button>
+                🔍 Analyze Another File
+            </button>
+        </a>
+
+    </div>
+
+</body>
+
+</html>

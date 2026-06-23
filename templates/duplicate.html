@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Duplicate Evidence</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static',
+filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>⚠ Duplicate Evidence Detected</h1>
+
+<div class="card">
+
+<h2>
+Existing Case:
+FX-{{ existing_case }}
+</h2>
+
+<p>
+This file already exists in the
+forensic database.
+</p>
+
+<hr>
+
+<p>
+<b>Filename:</b>
+{{ metadata.filename }}
+</p>
+
+<p>
+<b>SHA256:</b>
+{{ hashes.sha256 }}
+</p>
+
+</div>
+
+<br>
+
+<a href="/">
+<button>
+Analyze Another File
+</button>
+</a>
+
+</div>
+
+</body>
+</html>

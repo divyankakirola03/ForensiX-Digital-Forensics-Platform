@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>ForensiX</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>ForensiX</h1>
+
+    <h3>Digital Forensics Investigation Platform</h3>
+
+    <div class="card">
+
+        <h2>Upload Evidence</h2>
+
+        <form action="/upload"
+              method="POST"
+              enctype="multipart/form-data">
+
+            <input type="file"
+                   name="evidence">
+
+            <br>
+
+            <button type="submit">
+                Analyze Evidence
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>
