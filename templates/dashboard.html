@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ForensiX Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🛡 ForensiX SOC Dashboard</h1>
+
+    <div class="card">
+
+        <h2>Total Cases</h2>
+
+        <h1>{{ total_cases }}</h1>
+
+    </div>
+
+    <div class="card">
+
+        <h2>📂 Recent Cases</h2>
+
+        {% for case in recent_cases %}
+
+            <p>
+
+                <strong>
+                    FX-{{ case[0] }}
+                </strong>
+
+                -
+
+                {{ case[1] }}
+
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="card">
+
+        <h2>⛓ Chain of Custody Activity</h2>
+
+        {% for log in recent_activity %}
+
+            <p>
+
+                <strong>
+                    FX-{{ log[0] }}
+                </strong>
+
+                |
+
+                {{ log[1] }}
+
+                <br>
+
+                <small>
+                    {{ log[2] }}
+                </small>
+
+            </p>
+
+            <hr>
+
+        {% endfor %}
+
+    </div>
+
+    <br>
+
+    <a href="/">
+
+        <button>
+
+            🔍 Analyze New Evidence
+
+        </button>
+
+    </a>
+
+</div>
+
+</body>
+
+</html>
