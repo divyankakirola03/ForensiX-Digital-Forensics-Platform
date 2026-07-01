@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, send_file
+
 from modules.hashing import generate_hashes
 from modules.metadata import get_metadata
 from modules.exif_analyzer import extract_exif
@@ -22,7 +23,7 @@ init_db()
 
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 @app.route('/')
 def home():
