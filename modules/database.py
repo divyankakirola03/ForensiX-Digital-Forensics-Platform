@@ -188,3 +188,75 @@ def get_recent_cases():
     conn.close()
 
     return cases
+def get_file_statistics():
+
+    conn = sqlite3.connect("forensix.db")
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT filename
+        FROM evidence
+    """)
+
+    rows = cursor.fetchall()
+
+    conn.close()
+
+    images = 0
+    pdfs = 0
+    docs = 0
+    others = 0
+
+    for row in rows:
+
+        file = row[0].lower()
+
+        if file.endswith((".png",".jpg",".jpeg",".gif",".bmp",".tiff",".webp")):
+            images += 1
+
+        elif file.endswith(".pdf"):
+            pdfs += 1
+
+        elif file.endswith((".doc",".docx",".ppt",".pptx",".xls",".xlsx")):
+            docs += 1
+
+        else:
+            others += 1
+
+    return {
+
+        "images":images,
+
+        "pdfs":pdfs,
+
+        "docs":docs,
+
+        "others":others
+
+    }
+
+
+def get_total_storage():
+
+    conn = sqlite3.connect("forensix.db")
+
+    cursor = conn.cursor()
+
+    cursor.execute("""
+
+        SELECT SUM(size)
+
+        FROM evidence
+
+    """)
+
+    total = cursor.fetchone()[0]
+
+    conn.close()
+
+    if total is None:
+
+        total = 0
+
+    return round(total/1024,2)

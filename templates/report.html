@@ -1,111 +1,542 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ForensiX Report</title>
+    <title>ForensiX | Investigation Report</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .report-page {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .report-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .report-logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #00e5ff;
+            letter-spacing: 2px;
+        }
+
+        .report-nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .report-nav-links a {
+            text-decoration: none;
+            color: #cbd5e1;
+        }
+
+        .report-nav-links a:hover {
+            color: #00e5ff;
+        }
+
+        .report-hero {
+            margin-top: 35px;
+            padding: 40px;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #111b30, #162340);
+            border: 1px solid rgba(0,229,255,0.15);
+            box-shadow: 0 0 40px rgba(0,229,255,0.06);
+        }
+
+        .report-hero h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .report-hero p {
+            color: #9ca3af;
+        }
+
+        .case-badge {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 18px;
+            background: rgba(0,229,255,0.1);
+            border: 1px solid rgba(0,229,255,0.25);
+            color: #00e5ff;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        .report-section {
+            margin-top: 30px;
+        }
+
+        .section-heading {
+            font-size: 23px;
+            margin-bottom: 20px;
+            color: #00e5ff;
+        }
+
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .report-card {
+            background: rgba(17,27,48,0.85);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 20px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        .report-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0,229,255,0.25);
+            box-shadow: 0 0 25px rgba(0,229,255,0.07);
+        }
+
+        .report-card h3 {
+            color: #00e5ff;
+            margin-bottom: 20px;
+        }
+
+        .report-info {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 13px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .report-info:last-child {
+            border-bottom: none;
+        }
+
+        .report-info span:first-child {
+            color: #9ca3af;
+        }
+
+        .report-info span:last-child {
+            text-align: right;
+            overflow-wrap: anywhere;
+        }
+
+        .status-banner {
+            padding: 20px;
+            border-radius: 16px;
+            background: rgba(34,197,94,0.08);
+            border: 1px solid rgba(34,197,94,0.2);
+            color: #22c55e;
+            margin-top: 20px;
+        }
+
+        .hash-card {
+            margin-top: 20px;
+            background: #0b1425;
+            border: 1px solid rgba(0,229,255,0.15);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .hash-card h4 {
+            color: #00e5ff;
+            margin-bottom: 12px;
+        }
+
+        .hash-value {
+            font-family: Consolas, monospace;
+            color: #d1d5db;
+            overflow-wrap: anywhere;
+            line-height: 1.8;
+            font-size: 13px;
+        }
+
+        .verified-tag {
+            display: inline-block;
+            padding: 7px 13px;
+            border-radius: 20px;
+            background: rgba(34,197,94,0.12);
+            color: #22c55e;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .exif-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+        }
+
+        .exif-card {
+            background: #162340;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 22px;
+        }
+
+        .exif-card h4 {
+            color: #00e5ff;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .exif-card p {
+            color: #e5e7eb;
+            overflow-wrap: anywhere;
+        }
+
+        .risk-panel {
+            text-align: center;
+            padding: 35px;
+            background: rgba(17,27,48,0.9);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 22px;
+        }
+
+        .risk-score {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 25px auto;
+            font-size: 36px;
+            font-weight: 800;
+            border: 8px solid;
+        }
+
+        .risk-low {
+            color: #22c55e;
+            border-color: #22c55e;
+            box-shadow: 0 0 25px rgba(34,197,94,0.15);
+        }
+
+        .risk-medium {
+            color: #f59e0b;
+            border-color: #f59e0b;
+            box-shadow: 0 0 25px rgba(245,158,11,0.15);
+        }
+
+        .risk-high {
+            color: #ef4444;
+            border-color: #ef4444;
+            box-shadow: 0 0 25px rgba(239,68,68,0.15);
+        }
+
+        .risk-list {
+            text-align: left;
+            max-width: 750px;
+            margin: 20px auto;
+        }
+
+        .risk-list li {
+            background: rgba(255,255,255,0.04);
+            padding: 13px 17px;
+            border-radius: 12px;
+            margin: 10px 0;
+            color: #d1d5db;
+        }
+
+        .report-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        .report-actions a {
+            text-decoration: none;
+        }
+
+        .report-actions button {
+            min-width: 200px;
+        }
+
+        .report-footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px 10px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            color: #9ca3af;
+            line-height: 1.8;
+        }
+
+        @media(max-width: 600px) {
+            .report-hero {
+                padding: 25px;
+            }
+
+            .report-hero h1 {
+                font-size: 25px;
+            }
+
+            .report-navbar {
+                flex-direction: column;
+            }
+
+            .report-nav-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .report-actions button {
+                width: 100%;
+            }
+
+            .risk-score {
+                width: 125px;
+                height: 125px;
+                font-size: 30px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="container">
+<div class="container report-page">
 
-        <h1>🔍 ForensiX Report</h1>
+    <!-- NAVBAR -->
+    <nav class="report-navbar">
+        <div class="report-logo">FORENSIX</div>
 
-        <h2>Case ID: FX-{{ case_id }}</h2>
+        <div class="report-nav-links">
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+        </div>
+    </nav>
 
-        <div class="card">
+    <!-- HERO -->
+    <div class="report-hero">
+        <h1>🛡 Digital Forensics Investigation Report</h1>
+        <p>Evidence analysis, integrity verification and forensic assessment</p>
 
-            <h2>Evidence Analysis Complete</h2>
+        <div class="case-badge">
+            CASE ID: FX-{{ case_id }}
+        </div>
+    </div>
 
-            <hr>
+    <!-- REPORT INFORMATION -->
+    <div class="report-section">
+        <h2 class="section-heading">📋 Report Information</h2>
 
-            <h3>📁 File Information</h3>
+        <div class="report-grid">
+            <div class="report-card">
+                <h3>Report Details</h3>
 
-            <p><strong>Filename:</strong> {{ metadata.filename }}</p>
+                <div class="report-info">
+                    <span>Generated On</span>
+                    <span>{{ generated_on }}</span>
+                </div>
 
-            <p><strong>Size:</strong> {{ metadata.size }} KB</p>
+                <div class="report-info">
+                    <span>Platform</span>
+                    <span>ForensiX v2.0</span>
+                </div>
 
-            <p><strong>Created:</strong> {{ metadata.created }}</p>
+                <div class="report-info">
+                    <span>Investigator</span>
+                    <span>Divyanka Kirola</span>
+                </div>
+            </div>
 
-            <p><strong>Modified:</strong> {{ metadata.modified }}</p>
+            <div class="report-card">
+                <h3>Evidence Information</h3>
 
-            <p><strong>Extension:</strong> {{ metadata.extension }}</p>
+                <div class="report-info">
+                    <span>Filename</span>
+                    <span>{{ metadata.filename }}</span>
+                </div>
 
-            <hr>
+                <div class="report-info">
+                    <span>Extension</span>
+                    <span>{{ metadata.extension }}</span>
+                </div>
 
-            <h3>📷 EXIF Analysis</h3>
+                <div class="report-info">
+                    <span>Size</span>
+                    <span>{{ metadata.size }}</span>
+                </div>
 
-            <p>
-                <strong>Camera Make:</strong>
-                {{ exif.get('Make', 'Not Available') }}
-            </p>
+                <div class="report-info">
+                    <span>Created</span>
+                    <span>{{ metadata.created }}</span>
+                </div>
 
-            <p>
-                <strong>Camera Model:</strong>
-                {{ exif.get('Model', 'Not Available') }}
-            </p>
+                <div class="report-info">
+                    <span>Modified</span>
+                    <span>{{ metadata.modified }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <p>
-                <strong>Date Taken:</strong>
-                {{ exif.get('DateTime', 'Not Available') }}
-            </p>
+    <!-- INTEGRITY -->
+    <div class="report-section">
+        <h2 class="section-heading">🔐 Evidence Integrity</h2>
 
-            <hr>
-
-            <h3>🔐 MD5 Hash</h3>
-
-            <p style="word-break: break-all;">
-                {{ hashes.md5 }}
-            </p>
-
-            <hr>
-
-            <h3>🛡 SHA256 Hash</h3>
-
-            <p style="word-break: break-all;">
-                {{ hashes.sha256 }}
-            </p>
-
-            <hr>
-
-            <h3>✅ Evidence Status</h3>
-
-            <p>
-                Evidence stored successfully in forensic database.
-            </p>
-
+        <div class="status-banner">
+            ✓ Evidence uploaded successfully. Integrity verified using MD5 and SHA-256.
         </div>
 
-        <br>
+        <div class="report-grid">
+            <div class="report-card">
+                <h3>Integrity Status</h3>
 
-        <a href="{{ url_for('download_report', case_id=case_id) }}">
-            <button>
-                📄 Download PDF Report
-            </button>
+                <p><span class="verified-tag">Stored Successfully</span></p>
+                <br>
+                <p><span class="verified-tag">Hash Verified</span></p>
+                <br>
+                <p><span class="verified-tag">Ready for Investigation</span></p>
+            </div>
+
+            <div class="report-card">
+                <h3>Chain of Custody</h3>
+
+                <div class="report-info">
+                    <span>Status</span>
+                    <span class="verified-tag">Maintained</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hash-card">
+            <h4>MD5 Hash</h4>
+            <div class="hash-value">{{ hashes.md5 }}</div>
+        </div>
+
+        <div class="hash-card">
+            <h4>SHA-256 Hash</h4>
+            <div class="hash-value">{{ hashes.sha256 }}</div>
+        </div>
+    </div>
+
+    <!-- EXIF -->
+    <div class="report-section">
+        <h2 class="section-heading">📷 EXIF Analysis</h2>
+
+        <div class="exif-grid">
+
+            <div class="exif-card">
+                <h4>Camera Make</h4>
+                <p>{{ exif.get('make', 'Not Available') or 'Not Available' }}</p>
+            </div>
+
+            <div class="exif-card">
+                <h4>Camera Model</h4>
+                <p>{{ exif.get('model', 'Not Available') or 'Not Available' }}</p>
+            </div>
+
+            <div class="exif-card">
+                <h4>Date Taken</h4>
+                <p>{{ exif.get('datetime', 'Not Available') or 'Not Available' }}</p>
+            </div>
+
+            <div class="exif-card">
+                <h4>Software</h4>
+                <p>{{ exif.get('software', 'Not Available') or 'Not Available' }}</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- RISK -->
+    <div class="report-section">
+        <h2 class="section-heading">⚠ Evidence Assessment</h2>
+
+        <div class="risk-panel">
+
+            {% if risk.level == "LOW" %}
+                <div class="risk-score risk-low">
+                    {{ risk.score }}%
+                </div>
+            {% elif risk.level == "MEDIUM" %}
+                <div class="risk-score risk-medium">
+                    {{ risk.score }}%
+                </div>
+            {% else %}
+                <div class="risk-score risk-high">
+                    {{ risk.score }}%
+                </div>
+            {% endif %}
+
+            <h2>{{ risk.level }} RISK</h2>
+
+            <br>
+
+            <h3>Risk Indicators</h3>
+
+            {% if risk.reasons %}
+                <ul class="risk-list">
+                    {% for reason in risk.reasons %}
+                        <li>{{ reason }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No forensic indicators detected.</p>
+            {% endif %}
+
+            <br>
+
+            <h3>Recommendations</h3>
+
+            {% if risk.recommendations %}
+                <ul class="risk-list">
+                    {% for recommendation in risk.recommendations %}
+                        <li>{{ recommendation }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No additional recommendations.</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="report-actions">
+
+        <a href="/download/{{ case_id }}">
+            <button>📄 Download PDF Report</button>
         </a>
-
-        <br><br>
 
         <a href="/dashboard">
-            <button>
-                📊 Open Dashboard
-            </button>
+            <button class="btn-secondary">📊 Open Dashboard</button>
         </a>
 
-        <br><br>
-
         <a href="/">
-            <button>
-                🔍 Analyze Another File
-            </button>
+            <button class="btn-success">🔍 Analyze Another File</button>
         </a>
 
     </div>
 
-</body>
+    <!-- FOOTER -->
+    <div class="report-footer">
+        <strong style="color:#00e5ff;">
+            Developed with ❤️ by Divyanka Kirola
+        </strong>
 
+        <br><br>
+
+        ForensiX v2.0 • Digital Forensics Investigation Platform
+
+        <br>
+
+        <small>
+            Digital Evidence Integrity • Chain of Custody • Metadata Analysis • EXIF Analysis
+        </small>
+    </div>
+
+</div>
+
+</body>
 </html>

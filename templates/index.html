@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-    <title>ForensiX</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ForensiX | Digital Forensics Platform</title>
 
     <link rel="stylesheet"
-          href="{{ url_for('static',
-          filename='css/style.css') }}">
+          href="{{ url_for('static', filename='css/style.css') }}">
 
 </head>
 
@@ -15,32 +19,217 @@
 
 <div class="container">
 
-    <h1>ForensiX</h1>
+    <!-- ================= NAVBAR ================= -->
 
-    <h3>Digital Forensics Investigation Platform</h3>
+    <div class="navbar">
 
-    <div class="card">
+        <div class="logo">
 
-        <h2>Upload Evidence</h2>
+            🛡 Forensi<span>X</span>
 
-        <form action="/upload"
-              method="POST"
-              enctype="multipart/form-data">
+        </div>
 
-            <input type="file"
-                   name="evidence">
+        <div class="nav-links">
 
-            <br>
+            <a href="/">Home</a>
+
+            <a href="/dashboard">Dashboard</a>
+
+            <a href="#">Reports</a>
+
+            <a href="#">About</a>
+
+        </div>
+
+    </div>
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero fade-up">
+
+        <h1>
+
+            Digital Forensics Investigation Platform
+
+        </h1>
+
+        <p>
+
+            Upload digital evidence, generate forensic hashes,
+            inspect metadata, analyze EXIF information,
+            maintain chain of custody and produce professional
+            investigation reports — all from one platform.
+
+        </p>
+
+    </section>
+
+    <!-- ================= UPLOAD ================= -->
+
+    <div class="upload-card fade-up">
+
+        <div class="upload-icon">
+
+            📁
+
+        </div>
+
+        <h2>
+
+            Upload Digital Evidence
+
+        </h2>
+
+        <p>
+
+            Supported:
+            Images, PDFs, Office Documents,
+            ZIP Archives and other digital files.
+
+        </p>
+
+        <form
+            action="/upload"
+            method="POST"
+            enctype="multipart/form-data">
+
+            <input
+                type="file"
+                name="evidence"
+                required>
 
             <button type="submit">
-                Analyze Evidence
+
+                🔍 Analyze Evidence
+
             </button>
 
         </form>
 
     </div>
 
+    <!-- ================= FEATURES ================= -->
+
+    <div class="features">
+
+        <div class="feature-card">
+
+            <div class="icon-circle">
+
+                🔐
+
+            </div>
+
+            <h3>
+
+                Evidence Hashing
+
+            </h3>
+
+            <p>
+
+                Automatically generate MD5 and SHA-256
+                hashes to preserve digital evidence
+                integrity.
+
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <div class="icon-circle">
+
+                📷
+
+            </div>
+
+            <h3>
+
+                Metadata & EXIF
+
+            </h3>
+
+            <p>
+
+                Extract image metadata, timestamps,
+                device information and other
+                forensic artefacts.
+
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <div class="icon-circle">
+
+                ⛓
+
+            </div>
+
+            <h3>
+
+                Chain of Custody
+
+            </h3>
+
+            <p>
+
+                Maintain a complete investigation
+                timeline documenting every
+                forensic action.
+
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <div class="icon-circle">
+
+                📄
+
+            </div>
+
+            <h3>
+
+                Investigation Reports
+
+            </h3>
+
+            <p>
+
+                Generate downloadable PDF
+                forensic reports ready for
+                documentation and presentation.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+
+    <div class="footer">
+
+        Developed with ❤️ by
+
+        <strong>
+
+            Divyanka Kirola
+
+        </strong>
+
+        <br><br>
+
+        ForensiX • Digital Forensics Investigation Platform
+
+    </div>
+
 </div>
 
 </body>
+
 </html>
