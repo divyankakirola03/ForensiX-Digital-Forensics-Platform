@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForensiX | Reports</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        body {
+            background: #0b1120;
+            color: #e5e7eb;
+            font-family: Arial, sans-serif;
+        }
+
+        .report-box {
+            background: #151e30;
+            border: 1px solid #263650;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .report-item {
+            background: #1d293d;
+            padding: 18px;
+            margin: 15px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .report-item a {
+            color: #ffffff;
+            background: #2563eb;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+        }
+
+        .report-item a:hover {
+            background: #1d4ed8;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 25px;
+            color: #60a5fa;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="navbar">
+        <div class="logo">🛡 Forensi<span>X</span></div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/reports">Reports</a>
+            <a href="/about">About</a>
+        </div>
+    </div>
+
+    <section class="hero">
+        <h1>📄 Investigation Reports</h1>
+        <p>
+            View investigation cases and access their forensic reports.
+        </p>
+    </section>
+
+    <div class="report-box">
+
+        <h2>Available Reports</h2>
+
+        {% if recent_cases %}
+
+            {% for case in recent_cases %}
+
+                <div class="report-item">
+
+                    <div>
+                        <h3>FX-{{ case[0] }}</h3>
+                        <p>{{ case[1] }}</p>
+                    </div>
+
+                    <a href="/download/{{ case[0] }}">
+                        Download Report
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>No investigation reports available yet.</p>
+
+        {% endif %}
+
+    </div>
+
+    <a class="back-btn" href="/">← Back to Home</a>
+
+</div>
+
+</body>
+</html>

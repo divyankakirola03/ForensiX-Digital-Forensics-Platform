@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ForensiX | About</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        body {
+            background: #0b1120;
+            color: #e5e7eb;
+            font-family: Arial, sans-serif;
+        }
+
+        .about-card {
+            background: #151e30;
+            border: 1px solid #263650;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 25px;
+        }
+
+        .about-card h2 {
+            color: #60a5fa;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .tech {
+            background: #1d293d;
+            border: 1px solid #334155;
+            padding: 12px 18px;
+            border-radius: 8px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 25px;
+            color: #60a5fa;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="navbar">
+        <div class="logo">🛡 Forensi<span>X</span></div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/reports">Reports</a>
+            <a href="/about">About</a>
+        </div>
+    </div>
+
+    <section class="hero">
+        <h1>About ForensiX</h1>
+        <p>Digital Forensics Investigation Platform</p>
+    </section>
+
+    <div class="about-card">
+
+        <h2>Project Overview</h2>
+
+        <p>
+            ForensiX is a web-based digital forensic investigation
+            platform designed to assist in the preliminary analysis
+            and management of digital evidence.
+        </p>
+
+        <p>
+            The platform provides automated file hashing, metadata
+            extraction, EXIF analysis, duplicate evidence detection,
+            rule-based risk assessment, chain of custody tracking
+            and forensic report generation.
+        </p>
+
+        <h2>Key Features</h2>
+
+        <ul>
+            <li>Digital Evidence Upload</li>
+            <li>MD5 and SHA-256 Hash Generation</li>
+            <li>Metadata Extraction</li>
+            <li>EXIF Analysis</li>
+            <li>Duplicate Evidence Detection</li>
+            <li>Risk Assessment</li>
+            <li>Chain of Custody Logging</li>
+            <li>PDF Forensic Report Generation</li>
+            <li>Case Dashboard</li>
+        </ul>
+
+        <h2>Technology Stack</h2>
+
+        <div class="tech-list">
+            <div class="tech">Python</div>
+            <div class="tech">Flask</div>
+            <div class="tech">SQLite</div>
+            <div class="tech">HTML</div>
+            <div class="tech">CSS</div>
+            <div class="tech">Jinja2</div>
+            <div class="tech">Git</div>
+            <div class="tech">GitHub</div>
+            <div class="tech">Render</div>
+        </div>
+
+        <h2>Developer</h2>
+
+        <p>
+            Developed by <strong>Divyanka Kirola</strong>
+        </p>
+
+        <p>
+            ForensiX — Digital Forensics Investigation Platform
+        </p>
+
+    </div>
+
+    <a class="back-btn" href="/">← Back to Home</a>
+
+</div>
+
+</body>
+</html>
